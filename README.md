@@ -1,5 +1,3 @@
-[live hosted demo]: https://react-basic-exercises.netlify.app/
-
 ### Exercises Completed
 
 1. counter
@@ -10,3 +8,5 @@
 6. dark mode
 7. toast
 8. fontPairs
+
+_[Live Hosted Demo](https://react-basic-exercises.netlify.app/)_
