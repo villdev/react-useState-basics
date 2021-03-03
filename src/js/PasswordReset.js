@@ -19,6 +19,7 @@ function debounce(func, wait, immediate) {
 export default function PasswordReset() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
   const [errors, setErrors] = useState({
     pwError: false,
     confirmPwError: false,
@@ -26,17 +27,6 @@ export default function PasswordReset() {
 
   const delayedCheckPassword = useCallback(
     debounce((pw) => {
-      if (confirmPassword !== "") {
-        if (confirmPassword === password) {
-          setErrors((e) => {
-            return { ...e, confirmPwError: false };
-          });
-        } else {
-          setErrors((e) => {
-            return { ...e, confirmPwError: true };
-          });
-        }
-      }
       if (!/\d/.test(pw) || pw.length < 8) {
         setErrors((e) => {
           return { ...e, pwError: true };
@@ -46,21 +36,40 @@ export default function PasswordReset() {
           return { ...e, pwError: false };
         });
       }
+      // else if (pw === "") {
+      //   setErrors((e) => {
+      //     return { ...e, pwError: false };
+      //   });
+      // }
     }, 500),
     []
   );
-  //   const checkPassword = (pw) => {
-  //       if(/^\d/.test(pw) || pw.length < 8) {
-  //           setErrors(e => {return {...e, pwError: true }})
-  //       }
-  //   }
+  const delayedConfirmPassword = useCallback(
+    debounce((confirmPw, pw) => {
+      if (pw !== "") {
+        if (confirmPw === pw) {
+          setErrors((e) => {
+            return { ...e, confirmPwError: false };
+          });
+        } else {
+          setErrors((e) => {
+            return { ...e, confirmPwError: true };
+          });
+        }
+      }
+    }, 500),
+    []
+  );
   const updatePassword = (e) => {
     setPassword(e.target.value);
     delayedCheckPassword(e.target.value);
   };
   const checkConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
-    // delayedCheckPassword(e.target.value);
+    delayedConfirmPassword(e.target.value, password);
+  };
+  const toggleViewPassword = () => {
+    setViewPassword(!viewPassword);
   };
   return (
     <div className="exercise">
@@ -80,13 +89,18 @@ export default function PasswordReset() {
             <div className="new-password-input-wrapper">
               <input
                 className="new-password-input"
-                type="password"
+                type={viewPassword ? "text" : "password"}
                 name="new-password"
                 id="new-password"
                 onChange={updatePassword}
+                value={password}
                 // onKeyDown={updatePassword}
               />
-              <img src={hidePwIcon} alt="" />
+              {viewPassword ? (
+                <img onClick={toggleViewPassword} src={showPwIcon} alt="" />
+              ) : (
+                <img onClick={toggleViewPassword} src={hidePwIcon} alt="" />
+              )}
             </div>
             <div
               className="new-password-details"
@@ -104,8 +118,9 @@ export default function PasswordReset() {
                 name="confirm-password"
                 id="confirm-password"
                 onChange={checkConfirmPassword}
+                value={confirmPassword}
               />
-              <img src={hidePwIcon} alt="" />
+              {/* <img src={hidePwIcon} alt="" /> */}
             </div>
             <div
               className="confirm-password-details"
@@ -114,7 +129,15 @@ export default function PasswordReset() {
               Both passwords must match.
             </div>
           </div>
-          <button type="submit" className="password-reset-btn">
+          <button
+            type="submit"
+            className="password-reset-btn"
+            disabled={
+              !(errors.pwError !== true && errors.confirmPwError !== true) ||
+              password === "" ||
+              confirmPassword === ""
+            }
+          >
             Reset Password
           </button>
         </form>

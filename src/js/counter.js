@@ -11,9 +11,19 @@ export default function Counter() {
   return (
     <div className="exercise">
       <div className="counter">
-        <button onClick={decrement}>-</button>
+        <button
+          style={{ color: "green", borderRadius: "8px 0 0 8px" }}
+          onClick={decrement}
+        >
+          -
+        </button>
         <span>{count}</span>
-        <button onClick={increment}>+</button>
+        <button
+          style={{ color: "red", borderRadius: "0 8px 8px 0" }}
+          onClick={increment}
+        >
+          +
+        </button>
       </div>
     </div>
   );
