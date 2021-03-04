@@ -637,11 +637,11 @@ button {
   border-radius: 0 0 8px 8px;
 }
 .toast-time-done {
-  width: 75%;
+  width: 100%;
   height: 10px;
   background-color: #a0eac2;
 
-  border-radius: 0 0 0px 8px;
+  border-radius: 0 0 8px 8px;
 }
 
 /* -------------------------------------------------- */
@@ -666,8 +666,11 @@ button {
 }
 .selected-text {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 8px;
-  height: 30px;
+  height: 48px;
   font-weight: 600;
   color: #0000007a;
 }
@@ -689,10 +692,22 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  color: #00000091;
 }
 .font-pair {
   font-size: 14px;
-  /* font-weight: ; */
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+}
+.font-pair:hover {
+  background-color: #dfdede;
+  color: #000000;
+}
+.active-font-pair {
+  background-color: #dfdede;
+  color: #000000;
 }
 .figma-sample {
   width: 65%;
@@ -701,10 +716,18 @@ button {
 .sample-title {
   /* font-size: 30px; */
   /* line-height: 0.9; */
-  height: 40px;
+  height: 48px;
   font-weight: 700;
   line-height: 95%;
   /* margin-bottom: 24px; */
+  padding: 12px;
+  border-radius: 4px;
+}
+.sample-title:hover {
+  background-color: #e9e8e880;
+}
+.sample-para:hover {
+  background-color: #e9e8e880;
 }
 .pointing-cursor {
   cursor: pointer;
@@ -713,6 +736,8 @@ button {
   margin: 0;
   word-wrap: break-word;
   font-weight: 100;
+  padding: 12px;
+  border-radius: 4px;
   /* word-break: break-all; */
 }
 
@@ -829,9 +854,12 @@ button {
 
 .password-reset-btn {
   width: 100%;
-  height: 40px;
+  height: 44px;
   border: none;
   background-color: #7b39ed;
   color: #ffffff;
+  font-family: "Roboto";
+  font-weight: 300;
+  font-size: 18px;
   border-radius: 8px;
 }

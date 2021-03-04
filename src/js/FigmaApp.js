@@ -75,7 +75,11 @@ export default function FigmaApp() {
               <div
                 onClick={() => changeCurrentFontPair(id)}
                 key={id}
-                className="font-pair"
+                className={
+                  currentFontPair.Heading === Heading
+                    ? "font-pair active-font-pair"
+                    : "font-pair"
+                }
               >
                 {Heading} - {Paragraph}
               </div>

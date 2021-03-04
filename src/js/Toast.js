@@ -24,7 +24,7 @@ export default function Toast({ time, setStatus }) {
         <div className="toast-msg-wrapper">
           <div className="title">Success!</div>
           <div className="description">
-            The task has been finished. Close button or wait for timer.
+            This is a success task alert. Check out this toast message!
           </div>
         </div>
       </div>
