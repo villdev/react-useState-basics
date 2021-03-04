@@ -20,11 +20,35 @@ export default function TwitterPost() {
             className="tweet"
             name="tweet"
             id=""
-            placeholder="What's happening?"
+            placeholder="Write..."
           ></textarea>
         </div>
         <div className="tweet-actions">
-          <img className="attachIcon" src={attachLink} alt="" />
+          <button
+            className="tweet-btn"
+            disabled={characterCount[0] > characterCount[1]}
+          >
+            Tweet
+          </button>
+
+          <div className="circular-progress">
+            <div className="circular-track">
+              <div className="circle">
+                <div
+                  className="progress"
+                  style={
+                    characterCount[0] > characterCount[1]
+                      ? { color: "red" }
+                      : {}
+                  }
+                >
+                  {characterCount[0]} / {characterCount[1]}
+                </div>
+              </div>
+            </div>
+          </div>
+          <img className="attachIcon pointing-cursor" src={attachLink} alt="" />
+          {/* <img className="attachIcon" src={attachLink} alt="" />
           <div className="circular-progress">
             <div className="circular-track">
               <div className="circle">
@@ -46,7 +70,7 @@ export default function TwitterPost() {
             disabled={characterCount[0] > characterCount[1]}
           >
             Tweet
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
