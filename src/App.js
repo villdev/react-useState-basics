@@ -12,14 +12,14 @@ import DarkMode from "./js/DarkMode";
 import ToastEx from "./js/ToastEx";
 import FigmaApp from "./js/FigmaApp";
 const routes = [
-  "counter",
-  "twitterPost",
-  "passwordReset",
   "addToCart",
-  "todoApp",
-  "darkMode",
+  "passwordReset",
+  "twitterPost",
   "toastEx",
+  "todoApp",
   "figmaApp",
+  "darkMode",
+  "counter",
 ];
 //*counter
 //*twitter post
