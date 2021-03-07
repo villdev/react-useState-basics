@@ -36,9 +36,20 @@ const data = [
 ];
 
 export default function AddToCart() {
-  const [products, setProducts] = useState(data);
-  const [cart, setCart] = useState([]);
+  // ! not working as intended
+  // const [products, setProducts] = useState(data);
+
+  //! wishlist is successfully loaded using below line
+  const [products, setProducts] = useState(
+    JSON.parse(localStorage.getItem("data")) || data
+  );
+  // const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
   const [cartTotal, setCartTotal] = useState(0);
+  const [wishlist, setWishlist] = useState([]);
+  const [display, setDisplay] = useState("product-display");
 
   useEffect(() => {
     if (cart.length !== 0) {
@@ -46,14 +57,38 @@ export default function AddToCart() {
         return total + item.price * item.quantity;
       }, 0);
       setCartTotal(totalAmount);
+    } else {
+      setCartTotal(0);
     }
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const [wishlist, setWishlist] = useState([]);
   useEffect(() => {
     setWishlist(products.filter((item) => item.liked));
+    localStorage.setItem("data", JSON.stringify(products));
   }, [products]);
-  const [display, setDisplay] = useState("product-display");
+
+  // ! not working as intended
+  // useEffect(() => {
+  //   const savedProducts = JSON.parse(localStorage.getItem("data"));
+  //   console.log(savedProducts);
+  //   if (savedProducts.length > 0) {
+  //     console.log("success");
+  //     // setProducts(savedProducts);
+  //     setProducts((prevProd) => [...savedProducts]);
+  //   } else {
+  //     console.log("else");
+  //     localStorage.setItem("data", JSON.stringify(products));
+  //   }
+  // }, []);
+
+  //* no need of below useeffect, it saves the data anyways on change of products (useeffect[products])
+  // useEffect(() => {
+  //   const savedProducts = JSON.parse(localStorage.getItem("data"));
+  //   if (savedProducts === null) {
+  //     localStorage.setItem("data", JSON.stringify(products));
+  //   }
+  // }, []);
 
   const displayWishlist = () => {
     display !== "wishlist" && setDisplay("wishlist");
